@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Thaïland'erne — aperçu</title>
+    <style>
+      body {
+        display: grid;
+        min-height: 100vh;
+        min-height: 100dvh;
+        place-items: center;
+        margin: 0;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #14352d;
+        color: #fffaf0;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+      }
+      main { max-width: 32rem; }
+      h1, a { color: #e7b45b; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Thaïland'erne</h1>
+      <p id="status">Le lien vers cet aperçu est en cours de mise à jour.</p>
+      <p><a id="direct-link" href="#" hidden>Ouvrir l'aperçu</a></p>
+    </main>
+    <script>
+      // Après chaque redémarrage du tunnel, modifier uniquement cette ligne.
+      const TUNNEL_URL = "";
+
+      if (TUNNEL_URL.trim()) {
+        try {
+          const destination = new URL(TUNNEL_URL);
+          if (destination.protocol !== "https:" || destination.origin === window.location.origin) {
+            throw new Error("Adresse de destination invalide");
+          }
+          document.getElementById("status").textContent = "Redirection vers l'aperçu en cours…";
+          const link = document.getElementById("direct-link");
+          link.href = destination.href;
+          link.hidden = false;
+          window.location.replace(destination.href);
+        } catch {
+          document.getElementById("status").textContent = "L'adresse de l'aperçu est invalide. Réessayez plus tard.";
+        }
+      }
+    </script>
+  </body>
+</html>
